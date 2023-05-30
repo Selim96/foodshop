@@ -1,0 +1,32 @@
+@import '../../stylesheet/mixin';
+
+.navigation {
+    display: flex;
+    flex-direction: column;
+    height: 130px;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    @include mq(tablet) {
+        width: 250px;
+        height: auto;
+        flex-direction: row;
+        margin-bottom: 0;
+    }
+}
+
+.navigation_link {
+    color: var(--logo-color);
+    font-family: Montserrat;
+    font-size: 16px;
+    font-weight: 400;
+
+    &:hover {
+        text-decoration: underline;
+    };
+}
+
+.active {
+    font-weight: 600;
+    // color: var(--input-color-onfocus);
+};
