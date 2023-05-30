@@ -21,7 +21,9 @@ const shopSlice = createSlice({
     name: "shop",
     initialState,
     reducers: {
-
+        chooseRest: (state, action) => {
+            state.chosenRest = action.payload;
+        },
     },
     extraReducers:{
         [AllRestaurants.pending]: (state) => {
@@ -82,5 +84,5 @@ const shopSlice = createSlice({
 
 const reducer = shopSlice.reducer;
 
-export const { } = shopSlice.actions;
+export const {chooseRest } = shopSlice.actions;
 export default reducer;
