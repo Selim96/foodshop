@@ -7,6 +7,8 @@ import ShopAPI from './services/api';
 import Loader from './components/Loader';
 import Header from './components/Header';
 const ShopPage = lazy(() => import("./Pages/ShopPage"));
+const ShoppingCard = lazy(() => import("./Pages/ShoppingCard"));
+const HistoryPage = lazy(() => import("./Pages/HistoryPage"));
 
 const shopApi = new ShopAPI();
 
@@ -23,8 +25,8 @@ const App = () => {
       <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<ShopPage/>} />
-          
-          
+          <Route path='/card' element={<ShoppingCard/>} />
+          <Route path='/history' element={<HistoryPage/>} />
         </Routes>
       </Suspense>
       <ToastContainer

@@ -21,9 +21,9 @@ const ShopPage = () => {
         setFilterRest(name);
     },[]);
 
-    const handleChoose = useCallback((name, data) => {
+    const handleChoose = useCallback((data) => {
         dispatch(fillShopCard(data));
-        dispatch(chooseRest(name))
+        dispatch(chooseRest(data['restaurant']));
     }, [dispatch]);
 
     const getFilteredDishes = useMemo(() => {
@@ -87,23 +87,23 @@ const ShopPage = () => {
                     {getFilteredDishes.map(item =>
                     {
                         const { _id: id, dishe_name, price, restaurant, image } = item;
-                        const countInCard = shoppingCard.filter(({ _id }) => _id === id).length;
 
                         return (<li key={id} className={s.foodGallery_item}>
                             <div className={s.imageThumb}>
                                 <img src={image} alt='food' width={200} className={s.image} />
                             </div>
                             <div className={s.description}>
-                                <h3 className={s.name}>
-                                    {dishe_name}
-                                    <span
-                                        className={s.name_count}
-                                        style={{ display: countInCard === 0 ? "none" : "contents" }}>
-                                        {countInCard}
-                                    </span></h3>
+                                <h3 className={s.name}>{dishe_name}</h3>
                                 <p>{restaurant}</p>
                                 <p>{price}</p>
-                                <button type='button' className={s.button} onClick={()=>handleChoose(restaurant, item)}>Add To Card</button>
+                                <button
+                                    type='button'
+                                    className={s.button}
+                                    onClick={() => handleChoose(item)}
+                                    disabled={shoppingCard.some(({_id: elemId}) => id === elemId)}
+                                >
+                                    Add To Card
+                                </button>
                             </div>
                         </li>);
                     })}

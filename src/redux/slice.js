@@ -51,6 +51,8 @@ const shopSlice = createSlice({
         },
         [addOrder.fulfilled]: (state, {payload}) => {
             state.isLoading = false;
+            state.shoppingCard = [];
+            state.chosenRest = '';
             if (payload) {
                 toast.success("Order is added");
             } else {

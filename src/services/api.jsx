@@ -54,8 +54,8 @@ class ShopAPI {
     addOrderFetch() {
         return this.#addOrder;
     };
-    addOrder() {
-        return this.#addOrder();
+    addOrder(data) {
+        return this.#addOrder(data);
     };
 
     getOrderFetch() {
