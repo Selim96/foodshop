@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction  } from "@reduxjs/toolkit";
+import { createSlice  } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import ShopAPI from "../services/api";
 
@@ -23,6 +23,9 @@ const shopSlice = createSlice({
     reducers: {
         chooseRest: (state, action) => {
             state.chosenRest = action.payload;
+        },
+        fillShopCard: (state, action) => {
+            state.shoppingCard =[...state.shoppingCard, action.payload];
         },
     },
     extraReducers:{
@@ -84,5 +87,5 @@ const shopSlice = createSlice({
 
 const reducer = shopSlice.reducer;
 
-export const {chooseRest } = shopSlice.actions;
+export const {chooseRest, fillShopCard } = shopSlice.actions;
 export default reducer;
