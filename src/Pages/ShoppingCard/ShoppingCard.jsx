@@ -1,10 +1,10 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import * as selectors from '../../redux/selectors';
 import Container from '../../components/Container';
 import TextField from '@mui/material/TextField';
 import ShopAPI from '../../services/api';
-import { changeCard } from '../../redux/slice';
+import { changeCard, addFormData } from '../../redux/slice';
 import { toast } from "react-toastify";
 import s from './ShoppingCard.module.scss';
 
@@ -16,8 +16,34 @@ const ShoppingCard = () => {
     const [phone, setPhone] = useState('');
     const [address, setAddress] = useState('');
 
+    const notInitialRender = useRef(false);
+
     const dispatch = useDispatch();
     const shoppingCard = useSelector(selectors.getShopingCard);
+    const formData = useSelector(selectors.getFormData);
+
+    useEffect(() => {
+        if (formData) {
+            setName(formData.name);
+            setEmail(formData.email);
+            setPhone(formData.phone);
+            setAddress(formData.adress);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (notInitialRender.current) {
+            const dataToSend = {
+                name,
+                email,
+                phone: Number(phone),
+                adress: address
+            };
+            dispatch(addFormData(dataToSend));
+        } else {
+            notInitialRender.current = true;
+        }
+    }, [name, email, phone, address, dispatch]);
 
     const handlChange = e => {
         switch (e.target.name) {
@@ -171,7 +197,6 @@ const ShoppingCard = () => {
                                             name='count'
                                             className={s.count_input}
                                             min={1} max={50}
-                                            defaultValue={1}
                                             value={count}
                                             onChange={handlBlur}
                                             data-input={id}

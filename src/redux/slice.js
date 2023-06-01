@@ -35,7 +35,10 @@ const shopSlice = createSlice({
         },
         changeCount: (state, action) => {
             state.shoppingCard = []
-        }
+        },
+        addFormData: (state, action) => {
+            state.formData = action.payload;
+        },
     },
     extraReducers:{
         [AllRestaurants.pending]: (state) => {
@@ -98,5 +101,5 @@ const shopSlice = createSlice({
 
 const reducer = shopSlice.reducer;
 
-export const {chooseRest, fillShopCard, changeCard } = shopSlice.actions;
+export const {chooseRest, fillShopCard, changeCard, addFormData } = shopSlice.actions;
 export default reducer;

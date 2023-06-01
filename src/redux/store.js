@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { combineReducers } from "redux";
 import mainReducer from "./slice";
 import {
   persistStore,
@@ -18,10 +17,6 @@ const persistSession = {
   storage,
   blacklist: ["allRestaurants", "error", "ordersByEmail", "isLoading"],
 };
-
-const rootReducer = combineReducers({
-  session: persistReducer(persistSession, mainReducer)
-});
 
 const store = configureStore({
     reducer: persistReducer(persistSession, mainReducer),
