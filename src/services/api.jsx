@@ -61,8 +61,8 @@ class ShopAPI {
     getOrderFetch() {
         return this.#getOrder;
     };
-    getOrder() {
-        return this.#getOrder();
+    getOrder(email) {
+        return this.#getOrder(email);
     };
 
 };
