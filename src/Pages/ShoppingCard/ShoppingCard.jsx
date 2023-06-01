@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import * as selectors from '../../redux/selectors';
 import Container from '../../components/Container';
 import TextField from '@mui/material/TextField';
 import ShopAPI from '../../services/api';
+import { changeCard } from '../../redux/slice';
 import { toast } from "react-toastify";
 import s from './ShoppingCard.module.scss';
 
@@ -41,17 +42,36 @@ const ShoppingCard = () => {
         }
     };
 
+    const handlBlur = useCallback((e) => {
+        if (e.target.value < Number(e.target.min)) {
+            e.target.value = Number(e.target.min);
+        } else if (e.target.value > Number(e.target.max)) {
+            e.target.value = Number(e.target.max)
+        }
+        const id = e.target.dataset.input;
+        const newArr = shoppingCard.map(elem => {
+            const { _id, dishe_name, price, image, restaurant } = elem;
+            if (_id === id) {
+                return { _id, dishe_name, price, restaurant, image, count: e.target.value };
+            } else {
+                return elem;
+            }
+        });
+
+        dispatch(changeCard(newArr));
+    }, [dispatch, shoppingCard]);
+
     const handlSubmit = (e) => {
         e.preventDefault();
         if (shoppingCard.length !== 0) {
             const dataToSend = {
-            name,
-            email,
-            phone: Number(phone),
-            adress: address,
-            food: [...shoppingCard]
-        }
-        console.log(dataToSend)
+                name,
+                email,
+                phone: Number(phone),
+                adress: address,
+                food: [...shoppingCard]
+            };
+        
         dispatch(shopApi.addOrder(dataToSend));
         setName('');
         setEmail('');
@@ -60,8 +80,12 @@ const ShoppingCard = () => {
         } else {
             toast.error('Before you have to add dishes!')
         }
-        
-    }
+    };
+
+    const handlDelete = (id) => {
+        const newCard = shoppingCard.filter( ({_id: itemID}) => id !== itemID );
+        dispatch(changeCard(newCard));
+    };
 
 
     return (
@@ -69,7 +93,7 @@ const ShoppingCard = () => {
             <div className={s.main}>
                 <div>
                     <div>
-                        <form id='add_order' onSubmit={handlSubmit}>
+                        <form id='add_order' className={s.form} onSubmit={handlSubmit}>
                             <div className={s.input_box}>
                                 <TextField
                                     name='name'
@@ -134,7 +158,7 @@ const ShoppingCard = () => {
                     </div>
                     {shoppingCard.length === 0 ? <p>List of order is clear</p> :
                         <ul className={s.list_cards}>
-                            {shoppingCard.map(({_id: id, dishe_name, price, restaurant, image}) =>
+                            {shoppingCard.map(({_id: id, dishe_name, price, image}) =>
                             <li key={id} className={s.list_item}>
                                 <div className={s.image_thumb}>
                                     <img src={ image} alt='food' width={200}/>
@@ -142,14 +166,23 @@ const ShoppingCard = () => {
                                 <div>
                                     <p className={s.name}>{dishe_name}</p>
                                     <p>Price: $ {price}</p>
-                                        <input />
-                                        <button type='button' >Delete</button>
+                                        <input
+                                            type='number'
+                                            name='count'
+                                            className={s.count_input}
+                                            min={1} max={50}
+                                            defaultValue={1}
+                                            
+                                            onChange={handlBlur}
+                                            data-input={id}
+                                        />
+                                        <button type='button' onClick={()=>handlDelete(id)}>Delete</button>
                                 </div>
                             </li>)}
                         </ul>}
                 </div>
                 <div>
-                    <p>Total: <span>{shoppingCard.reduce((prev, elem)=>prev + elem.price, 0)}</span></p>
+                    <p>Total: <span>{shoppingCard.reduce((prev, elem)=>prev + elem.price * (elem.count ? elem.count : 1), 0)}</span></p>
                     <button type='submit' form='add_order' className={s.button}>Submit</button>
                 </div>
             </div>
