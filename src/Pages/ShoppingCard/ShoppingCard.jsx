@@ -36,7 +36,7 @@ const ShoppingCard = () => {
             const dataToSend = {
                 name,
                 email,
-                phone: Number(phone),
+                phone: phone,
                 adress: address
             };
             dispatch(addFormData(dataToSend));

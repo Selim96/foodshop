@@ -5,7 +5,7 @@ import ShopAPI from "../services/api";
 const shopApi = new ShopAPI();
 const AllRestaurants = shopApi.allRestaurantFetch();
 const addOrder = shopApi.addOrderFetch();
-const getOrder = shopApi.getOrder();
+const getOrder = shopApi.getOrderFetch();
 
 const initialState = {
     allRestaurants: [],
@@ -34,10 +34,13 @@ const shopSlice = createSlice({
             }
         },
         changeCount: (state, action) => {
-            state.shoppingCard = []
+            state.shoppingCard = [];
         },
         addFormData: (state, action) => {
             state.formData = action.payload;
+        },
+        clearHistory: (state, action) => {
+            state.ordersByEmail = [];
         },
     },
     extraReducers:{
@@ -101,5 +104,5 @@ const shopSlice = createSlice({
 
 const reducer = shopSlice.reducer;
 
-export const {chooseRest, fillShopCard, changeCard, addFormData } = shopSlice.actions;
+export const {chooseRest, fillShopCard, changeCard, addFormData, clearHistory } = shopSlice.actions;
 export default reducer;

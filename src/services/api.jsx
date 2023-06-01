@@ -33,9 +33,9 @@ class ShopAPI {
 
     #getOrder = createAsyncThunk(
         "getOrder",
-        async (email, { rejectWithValue }) => {
+        async (order, { rejectWithValue }) => {
             try {
-                const { data } = await axios.post("/api/order/history", email);
+                const { data } = await axios.post("/api/order/history", order);
                 return data;
             } catch (error) {
                 return rejectWithValue(error.status);
@@ -61,8 +61,8 @@ class ShopAPI {
     getOrderFetch() {
         return this.#getOrder;
     };
-    getOrder(email) {
-        return this.#getOrder(email);
+    getOrder(data) {
+        return this.#getOrder(data);
     };
 
 };

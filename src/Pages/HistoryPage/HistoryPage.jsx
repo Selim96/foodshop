@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as selectors from '../../redux/selectors';
 import ShopAPI from '../../services/api';
+import { clearHistory } from "../../redux/slice";
 import TextField from '@mui/material/TextField';
+import Loader from "../../components/Loader";
 import s from './HistoryPage.module.scss';
 
 const shopApi = new ShopAPI();
@@ -10,11 +12,16 @@ const shopApi = new ShopAPI();
 const HistoryPage = () => {
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
+    const [noContent, setNoContent] = useState(false);
 
     const dispatch = useDispatch();
     const history = useSelector(selectors.getOrderByEmail);
+    const loading = useSelector(selectors.getLoading);
+
+    console.log(history)
 
     const handlChange = e => {
+        console.log(e.target.name)
         switch (e.target.name) {
         case 'email':
             setEmail(e.target.value);
@@ -35,14 +42,20 @@ const HistoryPage = () => {
             email,
             phone: Number(phone),
         };
-        dispatch(shopApi.getOrder(email));
+        dispatch(shopApi.getOrder(dataToSend));
+        setNoContent(true);
+    };
+
+    const handlClear = () => {
+        dispatch(clearHistory());
         setEmail('');
         setPhone('');
+        setNoContent(false);
     };
 
     return (
         <div className={s.main}>
-            <form className={s.section_inputs} onSubmit={handlSubmit}>
+            <form id="form_history" className={s.section_inputs} onSubmit={handlSubmit}>
                 <p className={s.text}>Input your e-mail and phone to see history of orders.</p>
                 <div className={s.input_box}>
                     <TextField
@@ -74,10 +87,12 @@ const HistoryPage = () => {
                         onChange={handlChange}
                     />
                 </div>
-                <button type="submit" className={s.button}>Submit</button>
             </form>
-            {history.length === 0 ? <p className={s.nolist}>You have not any orders yet.</p> :
-            <ul className={s.list}>
+                <button type="submit" form="form_history" className={s.button}>Submit</button>
+                <button type="button" className={s.button } onClick={handlClear} disabled={history.length === 0}>Clear</button>
+            {loading && <Loader/>}
+            {history.length === 0 && !loading && noContent && <p className={s.nolist}>You have not any orders yet.</p>}
+            {history.length !== 0 && !loading && <ul className={s.list}>
                 {history.map(({ _id: mainId, food, createdAt }) => {
                 const date = new Date(createdAt);
                 const publishedAt = date.toDateString().split(" ").slice(1).join(" ");
@@ -85,12 +100,16 @@ const HistoryPage = () => {
                 return (
                 <li key={mainId} className={s.item}>
                     <ul className={s.minilist}>
-                        {food.map(({ _id, image, count = 1, price }) => {
+                        {food.map(({ _id, image, count = 1, price, dishe_name }) => {
                             priceArr.push(count * price);
                         return (
                         <li key={_id} className={s.minilist_item}>
                             <div className={s.image_thumb}>
                                 <img src={image} alt='food' width={100} />
+                            </div>
+                            <div className={s.minilist_text}>
+                                    <p className={s.minilist_name}>{dishe_name}</p>
+                                    <p className={s.minilist_name}>Price: ${price} x {count}</p>
                             </div>
                         </li>)})}
                     </ul>
