@@ -5,6 +5,7 @@ import ShopAPI from '../../services/api';
 import { clearHistory } from "../../redux/slice";
 import TextField from '@mui/material/TextField';
 import Loader from "../../components/Loader";
+import Container from "../../components/Container";
 import s from './HistoryPage.module.scss';
 
 const shopApi = new ShopAPI();
@@ -18,10 +19,7 @@ const HistoryPage = () => {
     const history = useSelector(selectors.getOrderByEmail);
     const loading = useSelector(selectors.getLoading);
 
-    console.log(history)
-
     const handlChange = e => {
-        console.log(e.target.name)
         switch (e.target.name) {
         case 'email':
             setEmail(e.target.value);
@@ -54,42 +52,46 @@ const HistoryPage = () => {
     };
 
     return (
-        <div className={s.main}>
-            <form id="form_history" className={s.section_inputs} onSubmit={handlSubmit}>
-                <p className={s.text}>Input your e-mail and phone to see history of orders.</p>
-                <div className={s.input_box}>
-                    <TextField
-                        name='email'
-                        id="outlined-controlled"
-                        label="Email"
-                        value={email}
-                        type='email'
-                        variant="outlined"
-                        size="small"
-                        classes={{root: 'input'}}
-                        fullWidth={true}
-                        required
-                        onChange={handlChange}
-                    />
+        <Container>
+            <div className={s.main}>
+                <form id="form_history" className={s.section_inputs} onSubmit={handlSubmit}>
+                    <p className={s.text}>Input your e-mail and phone to see history of orders.</p>
+                    <div className={s.input_box}>
+                        <TextField
+                            name='email'
+                            id="outlined-controlled"
+                            label="Email"
+                            value={email}
+                            type='email'
+                            variant="outlined"
+                            size="small"
+                            classes={{root: 'input'}}
+                            fullWidth={true}
+                            required
+                            onChange={handlChange}
+                        />
+                    </div>
+                    <div className={s.input_box}>
+                        <TextField
+                            name='phone'
+                            id="outlined-controlled"
+                            label="Phone"
+                            value={phone}
+                            type='number'
+                            variant="outlined"
+                            size="small"
+                            classes={{root: 'input'}}
+                            fullWidth={true}
+                            required
+                            onChange={handlChange}
+                        />
+                    </div>
+                </form>
+                <div className={s.button_box}>
+                    <button type="submit" form="form_history" className={s.button}>Submit</button>
+                    <button type="button" className={s.button } onClick={handlClear} disabled={history.length === 0}>Clear</button>
                 </div>
-                <div className={s.input_box}>
-                    <TextField
-                        name='phone'
-                        id="outlined-controlled"
-                        label="Phone"
-                        value={phone}
-                        type='number'
-                        variant="outlined"
-                        size="small"
-                        classes={{root: 'input'}}
-                        fullWidth={true}
-                        required
-                        onChange={handlChange}
-                    />
-                </div>
-            </form>
-                <button type="submit" form="form_history" className={s.button}>Submit</button>
-                <button type="button" className={s.button } onClick={handlClear} disabled={history.length === 0}>Clear</button>
+                
             {loading && <Loader/>}
             {history.length === 0 && !loading && noContent && <p className={s.nolist}>You have not any orders yet.</p>}
             {history.length !== 0 && !loading && <ul className={s.list}>
@@ -121,6 +123,8 @@ const HistoryPage = () => {
                 })}
             </ul>}
         </div>
+        </Container>
+        
     )
 };
 

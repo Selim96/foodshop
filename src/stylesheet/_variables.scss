@@ -1,13 +1,10 @@
 :root {
     --header-color: rgb(46, 57, 87);
-    --header-shadow: rgb(46, 57, 87, 0.5);
-    --button-color: rgba(46, 57, 87, 0.5);
+    --header-shadow: rgba(46, 57, 87, 0.308);
+    --button-color: rgba(46, 57, 87, 0.308);
     --button-color-hover: #fff;
     --logo-color: #fff;
     --input-color-onfocus: #1976d2;
     --black-color: #000;
-    --burgerMenu-color: rgb(62, 71, 71);
-    --burgerMenu-wraper-color: rgba(77, 71, 71, 0.438);
-    --mobile-width: 400px;
-    --tablet-width: 860px;
+    --sidebar-color: rgba(0, 255, 255, 0.267)
 }

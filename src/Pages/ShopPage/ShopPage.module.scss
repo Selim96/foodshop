@@ -1,12 +1,107 @@
+.main {
+    display: flex;
+    height: calc(100vh - 50px);
+    box-sizing: border-box;
+}
 
+.shopList {
+    width: 250px;
+    max-width: 250px;
+    height: 100%;
+    padding: 30px 20px;
+    background-color: var(--sidebar-color);
+}
+
+.lable {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.shopList_list {
+    width: 100%
+}
+
+.shopList_item {
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+    margin-bottom: 15px;
+}
 
 
 .shopList_button {
-
+    width: 100%;
+    height: 100%;
+    border: solid 2px var(--input-color-onfocus);
+    border-radius: 10px;
+    background-color: transparent;
+    font-size: 18px;
+    color: var(--black-color);
+    cursor: pointer;
+    &:hover {
+        color: var(--logo-color);
+        background-color: var(--input-color-onfocus);
+    }
 }
 
 .shopList_button_dis {
     @extend .shopList_button;
     position: relative;
     z-index: -1;
+}
+
+// ----------------Gallery----------------------
+
+.foodGallery {
+    display: flex;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    max-width: 75%;
+    height: 100%;
+    padding: 30px;
+    overflow: scroll;
+    box-sizing: border-box;
+    background-color: var(--button-color);
+}
+
+.foodGallery_item {
+    max-width: 200px;
+    height: 300px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: rgba(162, 171, 172, 0.377);
+    &:hover {
+        box-shadow: 2px 2px 2px var(--header-shadow);
+    }
+}
+
+.imageThumb {
+    width: 100%;
+    font-size: 0;
+}
+
+.description {
+    height: 100px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 12px;
+}
+
+.name {
+    text-transform: capitalize;
+}
+.price {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.button {
+    @extend .shopList_button;
+    width: 110px;
+    height: 20px;
+    font-size: 12px;
 }

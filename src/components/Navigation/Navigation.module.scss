@@ -2,20 +2,18 @@
 
 .navigation {
     display: flex;
-    flex-direction: column;
-    height: 130px;
     align-items: center;
     justify-content: space-around;
-    margin-bottom: 20px;
-    @include mq(tablet) {
-        width: 250px;
+    width: 250px;
+        max-width: 250px;
         height: auto;
         flex-direction: row;
         margin-bottom: 0;
-    }
+    
 }
 
 .navigation_link {
+    position: relative;
     color: var(--logo-color);
     font-family: Montserrat;
     font-size: 16px;
@@ -30,3 +28,17 @@
     font-weight: 600;
     // color: var(--input-color-onfocus);
 };
+
+.count {
+    position: absolute;
+    top: -25%;
+    right: -10%;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    color: var(--black-color);
+    background-color: var(--logo-color);
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+}

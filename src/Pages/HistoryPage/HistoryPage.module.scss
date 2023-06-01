@@ -1,0 +1,117 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 50px);
+    box-sizing: border-box;
+}
+
+.section_inputs{
+    padding: 30px;
+    width: 100%;
+    border-radius: 20px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    background-color: var(--sidebar-color);
+}
+
+.text{
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.input_box{
+    margin-bottom: 20px;
+}
+
+.button_box {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.button {
+    width: 110px;
+    height: 30px;
+    border: solid 2px var(--input-color-onfocus);
+    border-radius: 10px;
+    background-color: transparent;
+    font-size: 14px;
+    color: var(--black-color);
+    cursor: pointer;
+    &:hover {
+        color: var(--logo-color);
+        background-color: var(--input-color-onfocus);
+    }
+}
+
+.list{
+    flex-grow: 1;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    padding-right: 15px;
+    padding-left: 15px;
+    height: 100%;
+    overflow: scroll;
+    background-color: var(--button-color);
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    height: 150px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    background-color: rgba(238, 231, 231, 0.479);
+}
+
+.minilist {
+    display: flex;
+    width: 780px;
+    max-width: 780px;
+    flex-wrap: wrap;
+    overflow: scroll;
+    & .minilist_item {
+        display: flex;
+        justify-content: space-between;
+        margin-right: 8px;
+        margin-bottom: 10px;
+    }
+}
+
+.image_thumb{
+    height: 120px;
+    width: 140px;
+    margin-right: 5px;
+    &>img {
+        display: block;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+}
+
+.minilist_text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.minilist_name {
+    
+    text-transform: capitalize;
+}
+
+.description{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    &> p {
+        margin-bottom: 10px;
+    }
+}

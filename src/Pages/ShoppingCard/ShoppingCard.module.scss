@@ -1,0 +1,137 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 50px);
+    box-sizing: border-box;
+}
+
+.main_bottom {
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &>p {
+        font-size: 20px;
+        font-weight: 600;
+        margin-right: 30px;
+    }
+}
+
+
+
+.second {
+    display: flex;
+    flex-grow: 1;
+}
+
+.form_wrapper{
+    padding-top: 25px;
+    padding-right: 20px;
+    padding-bottom: 25px;
+}
+
+.form {
+    width: 400px;
+    max-width: 400px;
+    height: 100%;
+    padding-top: 30px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 20px;
+    box-sizing: border-box;
+    background-color: var(--sidebar-color);
+}
+
+.title{
+    margin-bottom: 20px;
+}
+
+.input_box{
+    margin-bottom: 20px;
+}
+
+// ------------------List-------------
+
+.list_cards{
+    flex-grow: 1;
+    padding-top: 30px;
+    padding-bottom: 20px;
+    padding-right: 15px;
+    padding-left: 15px;
+    height: 100%;
+    overflow: scroll;
+    box-sizing: border-box;
+    background-color: var(--button-color);
+}
+
+.list_item{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    overflow: hidden;
+    background-color: rgba(238, 231, 231, 0.479);
+}
+
+.image_thumb{
+    height: 150px;
+    width: 150px;
+    
+    &>img {
+        display: block;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+}
+
+.description{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    max-width: 300px;
+}
+
+.name{
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+}
+
+.description_price {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    margin-bottom: 20px;
+    & .count_input {
+        width: 40px;
+    }
+}
+
+.button {
+    width: 110px;
+    height: 30px;
+    border: solid 2px var(--input-color-onfocus);
+    border-radius: 10px;
+    background-color: transparent;
+    font-size: 14px;
+    color: var(--black-color);
+    cursor: pointer;
+    &:hover {
+        color: var(--logo-color);
+        background-color: var(--input-color-onfocus);
+    }
+    
+}
+
+.sub_button {
+    @extend .button;
+    height: 50px;
+    width: 150px;
+    font-size: 16px;
+    font-weight: 600;
+}

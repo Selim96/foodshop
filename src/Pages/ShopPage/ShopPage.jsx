@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { chooseRest, fillShopCard } from '../../redux/slice'; 
 import * as selectors from '../../redux/selectors'
 import Container from '../../components/Container';
+import Loader from '../../components/Loader';
 import { toast } from "react-toastify";
 import s from './ShopPage.module.scss';
 
@@ -16,6 +17,7 @@ const ShopPage = () => {
     const listOfRestaurants = useSelector(selectors.getAllRestaurants);
     const chosenRest = useSelector(selectors.getChosenRest);
     const shoppingCard = useSelector(selectors.getShopingCard);
+    const loading = useSelector(selectors.getLoading);
 
     const selectRestaurant = useCallback((name) => {
         setFilterRest(name);
@@ -63,7 +65,7 @@ const ShopPage = () => {
         <Container>
             <div className={s.main}>
                 <div className={s.shopList}>
-                    <p>Shops:</p>
+                    <p className={s.lable}>Shops:</p>
                     <ul className={s.shopList_list}>
                         {restaurants.map(({ id, name }) =>
                             <li
@@ -83,6 +85,7 @@ const ShopPage = () => {
                         </li>)}
                     </ul>
                 </div>
+                {loading ? <Loader /> : 
                 <ul className={s.foodGallery}>
                     {getFilteredDishes.map(item =>
                     {
@@ -95,7 +98,7 @@ const ShopPage = () => {
                             <div className={s.description}>
                                 <h3 className={s.name}>{dishe_name}</h3>
                                 <p>{restaurant}</p>
-                                <p>{price}</p>
+                                <p className={s.price}>${price}</p>
                                 <button
                                     type='button'
                                     className={s.button}
@@ -108,6 +111,8 @@ const ShopPage = () => {
                         </li>);
                     })}
                 </ul>
+                }
+                
             </div>
         </Container>
     )

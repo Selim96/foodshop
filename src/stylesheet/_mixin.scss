@@ -15,7 +15,7 @@
   $s-mobile: 400px;
   $mobile: 480px;
   $tablet: 860px;
-  $desktop: 1440px;
+  $desktop: 1340px;
 
     @if $range == s-mobile {
     @media (min-width: $s-mobile) {

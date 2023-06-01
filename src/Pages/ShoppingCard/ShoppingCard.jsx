@@ -117,9 +117,10 @@ const ShoppingCard = () => {
     return (
         <Container>
             <div className={s.main}>
-                <div>
-                    <div>
+                <div className={s.second}>
+                    <div className={s.form_wrapper}>
                         <form id='add_order' className={s.form} onSubmit={handlSubmit}>
+                            <h2 className={s.title}>Fill Form</h2>
                             <div className={s.input_box}>
                                 <TextField
                                     name='name'
@@ -189,26 +190,29 @@ const ShoppingCard = () => {
                                 <div className={s.image_thumb}>
                                     <img src={ image} alt='food' width={200}/>
                                 </div>
-                                <div>
-                                    <p className={s.name}>{dishe_name}</p>
-                                    <p>Price: $ {price}</p>
-                                        <input
-                                            type='number'
-                                            name='count'
-                                            className={s.count_input}
-                                            min={1} max={50}
-                                            value={count}
-                                            onChange={handlBlur}
-                                            data-input={id}
-                                        />
-                                        <button type='button' onClick={()=>handlDelete(id)}>Delete</button>
+                                <div className={s.description}>
+                                        <p className={s.name}>{dishe_name}</p>
+                                        <div className={s.description_price}>
+                                            <p>Price: $ {price}</p>
+                                            <input
+                                                type='number'
+                                                name='count'
+                                                className={s.count_input}
+                                                min={1} max={50}
+                                                value={count}
+                                                onChange={handlBlur}
+                                                data-input={id}
+                                            />
+                                        </div>
+                                    
+                                        <button type='button' className={s.button} onClick={()=>handlDelete(id)}>Delete</button>
                                 </div>
                             </li>)}
                         </ul>}
                 </div>
-                <div>
+                <div className={s.main_bottom}>
                     <p>Total: <span>{shoppingCard.reduce((prev, elem)=>prev + elem.price * (elem.count ? elem.count : 1), 0)}</span></p>
-                    <button type='submit' form='add_order' className={s.button}>Submit</button>
+                    <button type='submit' form='add_order' className={s.sub_button}>Submit</button>
                 </div>
             </div>
         </Container>
