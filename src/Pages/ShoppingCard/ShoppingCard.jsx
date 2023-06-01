@@ -158,7 +158,7 @@ const ShoppingCard = () => {
                     </div>
                     {shoppingCard.length === 0 ? <p>List of order is clear</p> :
                         <ul className={s.list_cards}>
-                            {shoppingCard.map(({_id: id, dishe_name, price, image}) =>
+                            {shoppingCard.map(({_id: id, dishe_name, price, image, count = 1}) =>
                             <li key={id} className={s.list_item}>
                                 <div className={s.image_thumb}>
                                     <img src={ image} alt='food' width={200}/>
@@ -172,7 +172,7 @@ const ShoppingCard = () => {
                                             className={s.count_input}
                                             min={1} max={50}
                                             defaultValue={1}
-                                            
+                                            value={count}
                                             onChange={handlBlur}
                                             data-input={id}
                                         />
